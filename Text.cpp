@@ -25,23 +25,9 @@ void Text::renderText(std::string str) {
   /* creating new surface */ 
   tempSurface = SDL_CreateRGBSurfaceFrom(pixels, 8*str.size(), 8, 32, 32*str.size(), 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
 
-  /* texture update */ 
-  if(m_texture) {
-    /* texture update */ 
-    if(m_text.size() == str.size()) {
-      /* update the current texture */ 
-      SDL_UpdateTexture(m_texture, NULL, pixels, 32*str.size()); 
-    }
-    else {
-      /* new texture */
-      SDL_DestroyTexture(m_texture); 
-      m_texture = SDL_CreateTextureFromSurface(m_renderer, tempSurface);
-    }
-  }
-  else {
-    /* new texture creation */ 
-    m_texture = SDL_CreateTextureFromSurface(m_renderer, tempSurface);
-  }
+  /* new texture */
+  SDL_DestroyTexture(m_texture); 
+  m_texture = SDL_CreateTextureFromSurface(m_renderer, tempSurface);
 
   if(tempSurface)
     SDL_FreeSurface(tempSurface); 
